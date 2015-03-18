@@ -1,9 +1,10 @@
+require 'byebug'
 module Phase2
   class ControllerBase
     attr_reader :req, :res
 
     # Setup the controller
-    def initialize(req, res)
+    def initialize(req, res, route_params = {})
       @req = req
       @res = res
       @already_built_response = false
@@ -30,6 +31,7 @@ module Phase2
     # Raise an error if the developer tries to double render.
     def render_content(content, content_type)
       unless self.already_built_response?
+
         @res.content_type = content_type
         @res.body = content
         @already_built_response = true
